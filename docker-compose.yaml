@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  xfce-vnc:
+    image: christian773/xfce-vnc:latest
+    restart: unless-stopped
+    environment:
+      - VNC_PW=<ENTER_PW>
+      - DEBUG=true
+    ports:
+      - "5902:5901"
+      - "6902:6901"
