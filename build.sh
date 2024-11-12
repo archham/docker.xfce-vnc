@@ -1,6 +1,6 @@
 #!/bin/sh -e
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
-REG=archham/xfce-vnc
+REG=docker.io/archham/xfce-vnc
 VERSION=$(cat VERSION)
 RELEASE=latest
 
