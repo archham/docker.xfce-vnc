@@ -3,7 +3,7 @@
 FROM ubuntu:latest
 
 MAINTAINER Chris Ruettimann "chris@bitbull.ch"
-ENV REFRESHED_AT 2024-11-12-16:52
+ENV REFRESHED_AT 2024-11-14-15:52
 ENV VERSION 0.0.1
 
 LABEL io.k8s.description="Headless VNC Container with Xfce window manager" \
@@ -44,6 +44,7 @@ RUN apt-get install -y apt-utils locales language-pack-en language-pack-en-base 
 RUN add-apt-repository ppa:mozillateam/ppa ; echo -n 'Package: * \nPin: release o=LP-PPA-mozillateam \nPin-Priority: 1001 \n' > /etc/apt/preferences.d/mozilla-firefox ; echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' > /etc/apt/apt.conf.d/51unattended-upgrades-firefox 
 
 RUN apt-get install -y \
+    dbus-x11 \
     geany geany-plugins-common \
     firefox \
     imagemagick \
@@ -51,7 +52,6 @@ RUN apt-get install -y \
     libnss-wrapper \
     ttf-wqy-zenhei \
     gettext \
-    pinta \
     software-properties-common \
     xfce4 \
     xfce4-terminal \
@@ -72,7 +72,6 @@ RUN apt-get install -y \
     wget \
     rsync \
     whois \
-    netcat \
     nmap \
     terminator \
     tmux \
