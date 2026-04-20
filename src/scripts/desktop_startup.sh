@@ -98,8 +98,12 @@ unset -v VNC_PW
 
 ## start vncserver and noVNC webclient
 echo -e "\n------------------ start noVNC  ----------------------------"
-if [[ $DEBUG == true ]]; then echo "$NO_VNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NO_VNC_PORT"; fi
-$NO_VNC_HOME/utils/launch.sh --vnc localhost:$VNC_PORT --listen $NO_VNC_PORT &> $STARTUPDIR/no_vnc_startup.log &
+NO_VNC_LAUNCHER="$NO_VNC_HOME/utils/launch.sh"
+if [[ ! -x "$NO_VNC_LAUNCHER" ]]; then
+    NO_VNC_LAUNCHER="$NO_VNC_HOME/utils/novnc_proxy"
+fi
+if [[ $DEBUG == true ]]; then echo "$NO_VNC_LAUNCHER --vnc localhost:$VNC_PORT --listen $NO_VNC_PORT"; fi
+$NO_VNC_LAUNCHER --vnc localhost:$VNC_PORT --listen $NO_VNC_PORT &> $STARTUPDIR/no_vnc_startup.log &
 PID_SUB=$!
 
 echo -e "\n------------------ start VNC server ------------------------"
