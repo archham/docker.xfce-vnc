@@ -5,8 +5,8 @@ services:
     image: christian773/xfce-vnc:latest
     restart: unless-stopped
     environment:
-      - VNC_PW=<ENTER_PW>
-      - DEBUG=true
+      - VNC_PW=${VNC_PW:?Set VNC_PW in your environment or .env file}
+      - DEBUG=${DEBUG:-false}
     ports:
       - "5902:5901"
       - "6902:6901"
