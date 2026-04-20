@@ -29,7 +29,7 @@ ENV HOME=/headless \
     DEBIAN_FRONTEND=noninteractive \
     VNC_COL_DEPTH=24 \
     VNC_RESOLUTION=1280x1024 \
-    VNC_PW=vncpassword \
+    VNC_PW= \
     VNC_VIEW_ONLY=false \
     LANG='en_US.UTF-8' \
     LANGUAGE='en_US:en' \
@@ -129,6 +129,5 @@ USER 1000
 
 ENTRYPOINT ["/dockerstartup/desktop_startup.sh"]
 CMD ["--wait"]
-
 
 

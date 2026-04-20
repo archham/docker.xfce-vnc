@@ -85,6 +85,12 @@ if [[ $VNC_VIEW_ONLY == "true" ]]; then
     #create random pw to prevent access
     echo $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 20) | vncpasswd -f > $PASSWD_PATH
 fi
+
+if [[ -z "${VNC_PW}" ]]; then
+    echo "ERROR: VNC_PW must be set to a non-empty value. Refusing to start with an empty/default VNC password."
+    exit 1
+fi
+
 echo "$VNC_PW" | vncpasswd -f >> $PASSWD_PATH
 chmod 600 $PASSWD_PATH
 unset -v VNC_PW
