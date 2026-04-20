@@ -31,6 +31,7 @@ sh build.sh
 ```
 docker run --env VNC_PW=secure. --env DEBUG=true --publish 5901:5901 --publish 6901:6901 christian773/xfce-vnc:latest
 ```
+`VNC_PW` is required and must be set to a non-empty password.
 
 ## OpenShift and OKD
 * openshift39x-classroom-setup.sh
