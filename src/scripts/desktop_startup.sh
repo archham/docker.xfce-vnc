@@ -82,16 +82,26 @@ fi
 
 if [[ $VNC_VIEW_ONLY == "true" ]]; then
     echo "start VNC server in VIEW ONLY mode!"
-    #create random pw to prevent access
     echo $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 20) | vncpasswd -f > $PASSWD_PATH
+else
+    if [[ -z "$VNC_PW" ]]; then
+        echo "ERROR: VNC_PW must be set to a non-empty value."
+        exit 1
+    fi
+
+    if [[ "$VNC_PW" == "vncpassword" ]]; then
+        echo "ERROR: Refusing to use insecure default VNC password. Please set --env VNC_PW=..."
+        exit 1
+    fi
+
+    if [[ ${#VNC_PW} -lt 8 ]]; then
+        echo "ERROR: VNC_PW must be at least 8 characters long."
+        exit 1
+    fi
+
+    echo "$VNC_PW" | vncpasswd -f >> $PASSWD_PATH
 fi
 
-if [[ -z "${VNC_PW}" ]]; then
-    echo "ERROR: VNC_PW must be set to a non-empty value. Refusing to start with an empty/default VNC password."
-    exit 1
-fi
-
-echo "$VNC_PW" | vncpasswd -f >> $PASSWD_PATH
 chmod 600 $PASSWD_PATH
 unset -v VNC_PW
 
