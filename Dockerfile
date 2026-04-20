@@ -100,12 +100,14 @@ RUN apt-get purge -y pm-utils xscreensaver* && \
     apt-get -y clean
 
 ### Install xvnc-server & noVNC - HTML5 based VNC viewer
-RUN mkdir -p $NO_VNC_HOME/utils/websockify && \
-    wget -qO- https://netcologne.dl.sourceforge.net/project/tigervnc/stable/1.10.1/tigervnc-1.10.1.x86_64.tar.gz | tar xz --strip 1 -C / && \
-    wget -qO- https://github.com/novnc/noVNC/archive/v1.2.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME && \
-    wget -qO- https://github.com/novnc/websockify/archive/v0.10.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify && \
+RUN apt-get update && \
+    apt-get install -y \
+      tigervnc-standalone-server \
+      novnc \
+      websockify && \
+    ln -sfn /usr/share/novnc $NO_VNC_HOME && \
     chmod +x -v $NO_VNC_HOME/utils/*.sh && \
-    cp -f /headless/noVNC/vnc.html /headless/noVNC/index.html
+    cp -f $NO_VNC_HOME/vnc.html $NO_VNC_HOME/index.html
 
 ### inject files
 ADD ./src/xfce/ $HOME/
